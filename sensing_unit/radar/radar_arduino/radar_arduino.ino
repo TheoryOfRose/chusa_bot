@@ -1,29 +1,34 @@
-#include<Servo.h> // add servo lib
-Servo servo1; // motor of radar 1
-int servo1_pin = 2;
-int value = 0; // var of angle
-
-
+/*
+* Ultrasonic Sensor HC-SR04 and Arduino Tutorial
+*
+* by Dejan Nedelkovski,
+* www.HowToMechatronics.com
+*
+*/
+// defines pins numbers
+const int trigPin = 3;
+const int echoPin = 4;
+// defines variables
+long duration;
+int distance;
 void setup() {
-  // put your setup code here, to run once:
-  servo1.attach(servo1_pin); // attach D2 pin
-  Serial.begin(9600);
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+  Serial.begin(9600); // Starts the serial communication
 }
-
 void loop() {
-  // put your main code here, to run repeatedly:
-  if(Serial.available())
-  {
-    char in_data;
-    in_data = Serial.read();
-    if(in_data == '1')
-    {
-      value += 30;
-      if(value == 180) value = 0;
-    }
-    else value = 0;
-
-    servo1.write(value); // rotate by angle value
-  }
-  delay(1000);
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delay(500);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculating the distance
+  distance= duration*0.034/2;
+  // Prints the distance on the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.println(distance);
 }
