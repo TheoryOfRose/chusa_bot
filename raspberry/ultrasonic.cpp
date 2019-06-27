@@ -12,10 +12,24 @@
 #include <stdint.h>
 #include <sys/resource.h>
 #include <wiringPi.h>
- 
+#include <constant.h>
+
 #define GPIO_TRIGGER  13
 #define GPIO_ECHO  22
- 
+
+class ultrasonic(){
+public:
+	ultrasonic(){
+	}
+	run(){
+	}
+	int freq;
+}
+
+ultrasonic::ultrasonic(){
+	freq = FREQ;
+}
+
 unsigned long get_usec_tick()
 {
     struct timespec ts;
@@ -33,8 +47,7 @@ int wait_state(int state)
 }
  
  
-int main( void )
-{
+int run(){
     long start, stop;
     int loop = 0, count;
     float f;
@@ -59,10 +72,10 @@ int main( void )
         start = micros();
         wait_state(HIGH);
         stop = micros();
-        distance = (float)(stop - start) / 58.8235;
+        distance = (float)(stop - start) / ULTRASONIC_SPEED;
         printf( "Distance : %9.1f cm\n", distance );
-        delay(1000);
-        if(loop++ == 100)break;
+        delay(1000/freq);
+        //if(loop++ == 100)break;
     }
     return(0);
 }
