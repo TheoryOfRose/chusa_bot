@@ -20,4 +20,5 @@ ssh pi@pi_ip
 
 
 2. How to use GPIO in C++
-http://www.hertaville.com/introduction-to-accessing-the-raspberry-pis-gpio-in-c.html
+https://nickcullen.net/blog/raspberry-pi-tutorials/compiling-linking-wiringpi/
+
