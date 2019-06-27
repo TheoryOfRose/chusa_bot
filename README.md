@@ -23,7 +23,12 @@ pw : raspberry
 
 
 --------------------------------------
+sudo raspi-config
+wifi
+SSID :  NAME
+PW : PW
 
+--------------------------------------
 SSH Connecting
 
 ifconfig -> get ip of raspberry pi
