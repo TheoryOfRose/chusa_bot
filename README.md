@@ -6,6 +6,11 @@ http://wiki.ros.org/rplidar
 
 https://m.blog.naver.com/PostView.nhn?blogId=thumbdown&logNo=220385363246&proxyReferer=https%3A%2F%2Fwww.google.com%2F
 
+//raspi setting
+
+https://m.blog.naver.com/elepartsblog/221171496379
+makeshare.org/bbs/board.php?bo_table=raspberrypi&wr_id=73
+
 
 # Autonomous-Navigating-and-2D-Mapping-Robot
 Autonomous Navigating and 2D Mapping Robot using RC car
