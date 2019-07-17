@@ -5,16 +5,9 @@ https://www.intorobotics.com/installing-ros-melodic-on-raspberry-pi-3b-running-u
 # Autonomous-Navigating-and-2D-Mapping-Robot
 Autonomous Navigating and 2D Mapping Robot using RC car
 
-<<<<<<< HEAD
-We use Soundwave Sensor as a radar.
+360 Degree Laser Scanner Development Kit - RPLIDAR A1M8 [DFR0315]
 
-We use Servo Motor to circulate a Soundwave Sensor.
-
-Connect Arduino with Soundwave sensor & Servo Motor
-
-Arduino will transfer distance data to Raspberry Pi.
-
-Raspberry pi accept the data and Mapping on own coordinate.
+Ubuntu MATE 18.04 LTS + ROS Melodic
 
 =======
 1. How to connect Raspberry Pi
