@@ -3,6 +3,7 @@ https://m.blog.naver.com/PostView.nhn?blogId=khsuniv201&logNo=221014021629&proxy
 https://www.intorobotics.com/installing-ros-melodic-on-raspberry-pi-3b-running-ubuntu-mate-18-04-2-bionic/
 http://wiki.ros.org/melodic/Installation/Ubuntu
 http://wiki.ros.org/rplidar
+https://m.blog.naver.com/PostView.nhn?blogId=thumbdown&logNo=220385363246&proxyReferer=https%3A%2F%2Fwww.google.com%2F
 
 
 # Autonomous-Navigating-and-2D-Mapping-Robot
