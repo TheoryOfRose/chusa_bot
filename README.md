@@ -38,3 +38,16 @@ ssh pi@pi_ip
 https://nickcullen.net/blog/raspberry-pi-tutorials/compiling-linking-wiringpi/
 >>>>>>> 3513c57fe4647d35afeafdd4e61887d3c2fc0e43
 
+
+=============================================================================================
+=============================================================================================
+
+Install ROS in Ubuntu 18.04 
+
+http://wiki.ros.org/melodic/Installation/Ubuntu
+
+ROS Tutorials
+
+http://wiki.ros.org/ROS/Tutorials
+
+** Use Catkin
