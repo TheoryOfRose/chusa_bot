@@ -46,7 +46,7 @@ https://nickcullen.net/blog/raspberry-pi-tutorials/compiling-linking-wiringpi/
 =============================================================================================
 =============================================================================================
 
-Install ROS in Ubuntu 18.04 
+1. Install ROS in Ubuntu 18.04 
 
 http://wiki.ros.org/melodic/Installation/Ubuntu
 
@@ -55,3 +55,15 @@ ROS Tutorials
 http://wiki.ros.org/ROS/Tutorials
 
 ** Use Catkin
+
+2. Tutorial for RPLidar
+
+$ mkdir -p ~/catkin_ws/src
+$ cd ~/catkin_ws/
+$ catkin_make
+
+Follow this url : https://m.blog.naver.com/PostView.nhn?blogId=thumbdown&logNo=220385363246&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+
+$ source devel/setup.bash
+
+이후 센서 구동 및 모니터링
