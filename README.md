@@ -72,3 +72,8 @@ Follow this url : https://m.blog.naver.com/PostView.nhn?blogId=thumbdown&logNo=2
 $ source devel/setup.bash
 
 이후 센서 구동 및 모니터링
+
+
+qt4-qmake :
+
+Try installing libqt4-dev to install the Qt4 development files.
