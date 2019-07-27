@@ -2,7 +2,7 @@
 <launch>
 
   <arg name="rviz_config" default="$(find junior_description)/rviz/model.rviz"/>
-  <param name="robot_description" textfile="$(find junior_description)/urdf/junior.urdf.xacro"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find junior_description)/urdf/junior.urdf.xacro"/>
   
 
   <!-- send fake joint values -->
