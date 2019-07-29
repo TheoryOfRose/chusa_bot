@@ -2,12 +2,13 @@
 <launch>
 
   <arg name="rviz_config" default="$(find chusa_description)/rviz/model.rviz"/>
+  <arg name="joint_gui" default="False"/>
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find chusa_description)/urdf/chusa.urdf.xacro"/>
   
 
   <!-- send fake joint values -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="use_gui" value="False"/>
+    <param name="use_gui" value="$(arg joint_gui)"/>
   </node>
 
   <!-- Combine joint values -->
