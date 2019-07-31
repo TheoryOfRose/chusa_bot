@@ -26,4 +26,6 @@
   <node name="chusa_spawn" pkg="gazebo_ros" type="spawn_model"
    args="-urdf -param robot_description -model chusa -x $(arg x) -y $(arg y) -Y $(arg theta)" />
 
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
 </launch>
