@@ -82,3 +82,7 @@ $ source devel/setup.bash
 qt4-qmake :
 
 Try installing libqt4-dev to install the Qt4 development files.
+
+=================================================
+rosserial 사용
+systemctl stop ModemManager.service
