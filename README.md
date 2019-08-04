@@ -1,3 +1,9 @@
+Arduino Upload
+$arduino --upload name.ino
+$sudo chmod 666 /dev/ttyACM0
+$rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=57600
+
+
 https://m.blog.naver.com/PostView.nhn?blogId=khsuniv201&logNo=221014021629&proxyReferer=https%3A%2F%2Fwww.google.com%2F'
 
 https://www.intorobotics.com/installing-ros-melodic-on-raspberry-pi-3b-running-ubuntu-mate-18-04-2-bionic/
