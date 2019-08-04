@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 Arduino Upload
 $arduino --upload name.ino
 $sudo chmod 666 /dev/ttyACM0
 $rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=57600
+=======
+ssh
+https://askubuntu.com/questions/600584/error-could-not-load-host-key-when-trying-to-recreate-ssh-host-keys
+https://yeopbox.com/%EC%9A%B0%EB%B6%84%ED%88%AC-%EB%A9%94%EC%9D%B4%ED%8A%B8-16-04-lts-ssh-%EC%9B%90%EA%B2%A9-%EC%A0%9C%EC%96%B4%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/
+>>>>>>> f067fee5a04d55da518d4f92ccc2d11dc4654e92
 
 
 https://m.blog.naver.com/PostView.nhn?blogId=khsuniv201&logNo=221014021629&proxyReferer=https%3A%2F%2Fwww.google.com%2F'
@@ -83,3 +89,7 @@ $ source devel/setup.bash
 qt4-qmake :
 
 Try installing libqt4-dev to install the Qt4 development files.
+
+=================================================
+rosserial 사용
+systemctl stop ModemManager.service
