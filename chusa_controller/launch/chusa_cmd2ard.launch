@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="cmd2ard" type="cmd2ard" name="cmd2ard"/>
+</launch>
