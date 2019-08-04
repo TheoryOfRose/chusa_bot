@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="chusa_odom" type="chusa_odom" name="chusa_odom"/>
+</launch>
