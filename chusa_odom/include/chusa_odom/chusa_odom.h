@@ -9,11 +9,11 @@
 
 #define W_PI 3.14159
 
-class chusa_odom{
+class Chusa_Odom{
 
 public:
-    chusa_odom();
-    ~chusa_odom();
+    Chusa_Odom();
+    ~Chusa_Odom();
     bool init();
 
 private:

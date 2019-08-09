@@ -1,23 +1,23 @@
 #include "ros/ros.h"
 #include "chusa_odom/chusa_odom.h"
 
-chusa_odom::chusa_odom(){
+Chusa_Odom::Chusa_Odom(){
   bool init_result = init();
   ROS_ASSERT(init_result);
 }
 
-chusa_odom::~chusa_odom(){
+Chusa_Odom::~Chusa_Odom(){
 
 }
 
-bool chusa_odom::init(){
+bool Chusa_Odom::init(){
   publisher_ = nh_.advertise<nav_msgs::Odometry>("odom", 10);
-  subscriber_ = nh_.subscribe("cmd_vel", 100, &chusa_odom::msgCallback, this);
+  subscriber_ = nh_.subscribe("cmd_vel", 100, &Chusa_Odom::msgCallback, this);
 
   return true;
 }
 
-void chusa_odom::msgCallback(const geometry_msgs::Twist cmd_vel_in){
+void Chusa_Odom::msgCallback(const geometry_msgs::Twist cmd_vel_in){
   double vx,vy,vth;
   double x,y,th;
   
@@ -90,13 +90,12 @@ void chusa_odom::msgCallback(const geometry_msgs::Twist cmd_vel_in){
 
 	  loop_rate.sleep();
 	  }
-  
 }
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "chusa_odom");
 
-  chusa_odom chusa_odom_node;
+  Chusa_Odom chusa_odom_node;
 
   ros::spin();
 
