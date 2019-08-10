@@ -1,0 +1,6 @@
+<launch>
+  <!-- turtlebot3_teleop_key already has its own built in velocity smoother -->
+  <node pkg="chusa_imu" type="chusa_imu" name="chusa_imu">
+  </node>
+</launch>
+
