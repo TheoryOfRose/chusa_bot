@@ -7,13 +7,14 @@
 
 #define PWM_MIN 0
 #define PWM_MAX 250
-#define VEL_MAX 10
+#define LIN_VEL_MAX 10
+#define ANG_VEL_MAX 2
 #define R_PWM 9
 #define R_FORW 8
 #define R_BACK 7
 #define L_PWM 3
-#define L_FORW 2
-#define L_BACK 4
+#define L_FORW 4
+#define L_BACK 2
 
 
 
@@ -150,4 +151,5 @@ void loop()
     stop();
   }
   nh.spinOnce();
+  delay(10);
 }
