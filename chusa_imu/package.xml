@@ -56,4 +56,9 @@
     <!-- Other tools can request additional information be placed here -->
 
   </export>
+
+  <!--depend package="numpy_eigen"/>
+  <export>
+    <python path="${prefix}/src"/>
+  </export-->
 </package>

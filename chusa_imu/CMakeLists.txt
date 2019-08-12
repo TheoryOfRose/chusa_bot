@@ -1,6 +1,23 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(chusa_imu)
 
+# Use this handy cmake function
+#rosbuild_find_ros_package(numpy_eigen)
+
+#include(${numpy_eigen_PACKAGE_PATH}/cmake/add_python_export_library.cmake)
+
+# This functions take TARGET_NAME PYTHON_MODULE_DIRECTORY sourceFile1 [sourceFile2 ...]
+#add_python_export_library(${PROJECT_NAME}_python src/${PROJECT_NAME}
+#  src/module.cpp
+#  src/python/EXAMPLEFILE.cpp
+#)
+
+# This is only necessary if there is a previously-defined target
+# called ${PROJECT_NAME}. If your pure C++ code is defined in a
+# different ros package, use the regular manifest.xml dependency
+# scheme to make sure this stuff links correctly.
+#target_link_libraries(${PROJECT_NAME}_python ${PROJECT_NAME})
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 

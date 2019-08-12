@@ -5,6 +5,9 @@ import smbus
 import time
 import math
 from sensor_msgs.msg import Imu
+import std_msgs.msg
+from geometry_msgs.msg import Vector3
+import numpy as np
 
 ## MPU9250 Default I2C slave address
 SLAVE_ADDRESS        = 0x68
@@ -278,28 +281,70 @@ class MPU9250:
         return value
 
 def main():
-	rospy.init_node('chusa_imu')
 	pub = rospy.Publisher('Imu', Imu, queue_size=100)
+	rospy.init_node('chusa_imu', anonymous=True)
+	#pub = rospy.Publisher('Imu', Imu, queue_size=100)
 	mpu9250 = MPU9250();
+	rate=rospy.Rate(10);
+	i=0
+	imu = Imu()
 	while not rospy.is_shutdown():
 
                 accel = mpu9250.readAccel()
-                print "ax = ",(accel['x'])
-                print "ay = ",(accel['y'])
-                print "az = ",(accel['z'])
+#                print "ax = ",(accel['x'])
+#                print "ay = ",(accel['y'])
+#                print "az = ",(accel['z'])
                 gyro = mpu9250.readGyro()
-                print "gx = ",(gyro['x'])
-                print "gy = ",(gyro['y'])
-                print "gz = ",(gyro['z'])
+#                print "gx = ",(gyro['x'])
+#                print "gy = ",(gyro['y'])
+#                print "gz = ",(gyro['z'])
                 mag = mpu9250.readMagnet()
-                print "mx = ",(mag['x'])
-                print "my = ",(mag['y'])
-                print "mz = ",(mag['z'])
+#                print "mx = ",(mag['x'])
+#                print "my = ",(mag['y'])
+#                print "mz = ",(mag['z'])
 
-		imu = Imu()
-		imu.orientation_covariance = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025}
-		imu.angular_velocity_covariance = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025}
-		imu.linear_acceleration_covariance = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025}
+		#imu = Imu()
+		
+		imu.header.seq = i++
+		imu.header.stamp = rospy.get_rostime()
+		imu.header.frame_id="base_link"
+
+
+#		imu.orientation_covariance = [1.0 , 2.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0]
+#		imu.data.angular_velocity_covariance = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+#		imu.data.linear_acceleration_covariance = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+
+#		imu.orientation_covariance = [0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025]
+#		imu.angular_velocity_covariance = [0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025]
+#		imu.linear_acceleration_covariance = [0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025]
+
+#		p_cov = np.array([0.0]*9).reshape(3,3)
+#		p_cov[0,0] = 0.001
+#		p_cov[1,1] = 0.001
+#		p_cov[2,2] = 0.001
+#		imu.data.linear_acceleration_covariance = tuple(p_cov.ravel().tolist())
+
+#		p_cov = np.zeros((0,9))
+#		imu.orientation_covariance = p_cov
+#		imu.angular_velocity_covariance = p_cov
+#		imu.linear_acceleration_covariance = p_cov
+#		p_cov2 = np.array([0.0]*9).reshape(3,3)
+#		p_cov2[0,0] = 0.001
+#		p_cov2[1,1] = 0.001
+#		p_cov2[2,2] = 0.001
+#		imu.data.angular_velocity_covariance = tuple(p_cov2.ravel().tolist())
+
+#		p_cov3 = np.array([0.0]*9).reshape(3,3)
+#		p_cov3[0,0] = 0.001
+#		p_cov3[1,1] = 0.001
+#		p_cov3[2,2] = 0.001
+#		imu.data.orientation_covariance = tuple(p_cov3.ravel().tolist())
+
+
+#		for i in range(0,9):
+#			imu.orientation_covariance[i] = float(0.0)
+#			imu.angular_velocity_covariance[i] = float(0.0)
+#			imu.linear_acceleration_covariance[i] = float(0.0)
 
 		roll = (float)(math.atan2(gyro['y'], gyro['z']))
 		accel
@@ -331,7 +376,7 @@ def main():
 		imu.linear_acceleration.z = gyro['z']
 
 		pub.publish(imu)
-		accel = mpu9250.readAccel()
+#		accel = mpu9250.readAccel()
 #		print "ax = ",(accel['x'])
 #		print "ay = ",(accel['y'])
 #		print "az = ",(accel['z'])
@@ -347,7 +392,7 @@ def main():
 #		print "mz = ",(mag['z'])
 #		print
 			
-		time.sleep(0.1)
+		rate.sleep(1.0)
 
 if __name__ == "__main__":
 	main()
