@@ -281,43 +281,57 @@ def main():
 	rospy.init_node('chusa_imu')
 	pub = rospy.Publisher('Imu', Imu, queue_size=100)
 	mpu9250 = MPU9250();
-	while True:
+	while not rospy.is_shutdown():
+
+                accel = mpu9250.readAccel()
+                print "ax = ",(accel['x'])
+                print "ay = ",(accel['y'])
+                print "az = ",(accel['z'])
+                gyro = mpu9250.readGyro()
+                print "gx = ",(gyro['x'])
+                print "gy = ",(gyro['y'])
+                print "gz = ",(gyro['z'])
+                mag = mpu9250.readMagnet()
+                print "mx = ",(mag['x'])
+                print "my = ",(mag['y'])
+                print "mz = ",(mag['z'])
+
 		imu = Imu()
-		imu.orientation_covariacne = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025}
+		imu.orientation_covariance = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025}
 		imu.angular_velocity_covariance = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025}
 		imu.linear_acceleration_covariance = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025}
 
 		roll = (float)(math.atan2(gyro['y'], gyro['z']))
-
+		accel
 		imu.orientation.x = roll
 
 		pitch = (float)(0.0)
 
-		if(gyro['y']*sin(roll) + gyro['z'] * cos(roll) == 0):
+		if(gyro['y']*math.sin(roll) + gyro['z'] * math.cos(roll) == 0):
 			if( gyro['x'] > 0):
 				pitch = (float)(PI /2)
 			else:
 				pitch = - (float)(PI / 2)
 		else:
-			pitch = (float)(math.atan2(gyro['x'] / (gyro['y'] * sin(roll) + gyro['z'] * cos(roll)))
+			pitch = (float)(math.atan2(gyro['x'] , (gyro['y'] * math.sin(roll) + gyro['z'] * math.cos(roll))))
 
 		imu.orientation.y = pitch
 
-		yaw = (float)(math.atan2(mag['z'] - mag['y'] * cos(roll), mag['x'] * cos(pitch) + mag['y'] * sin(pitch) * sin(roll) + mag['z'] * sin(pitch) * cos(roll)))
+		yaw = (float)(math.atan2(mag['z'] - mag['y'] * math.cos(roll), mag['x'] * math.cos(pitch) + mag['y'] * math.sin(pitch) * math.sin(roll) + mag['z'] * math.sin(pitch) * math.cos(roll)))
 		imu.orientation.z = yaw
 
 		imu.orientation.w = 1
 
 		imu.angular_velocity.x = gyro['x'] * 0.07 * DPS_TO_RADS
 		imu.angular_velocity.y = gyro['y'] * 0.07 * DPS_TO_RADS
-		imu.angular_veloctiy.z = gyro['z'] * 0.07 * DPS_TO_RADS
+		imu.angular_velocity.z = gyro['z'] * 0.07 * DPS_TO_RADS
 
 		imu.linear_acceleration.x = gyro['x']
 		imu.linear_acceleration.y = gyro['y']
 		imu.linear_acceleration.z = gyro['z']
 
 		pub.publish(imu)
-#		accel = mpu9250.readAccel()
+		accel = mpu9250.readAccel()
 #		print "ax = ",(accel['x'])
 #		print "ay = ",(accel['y'])
 #		print "az = ",(accel['z'])
