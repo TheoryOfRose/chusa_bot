@@ -12,4 +12,6 @@
     <param name="_baud" value="$(arg baud_rate)"/>
   </node>
 
+  <node name="imu_pub" pkg="imu_mpu9250_pub" type="imu_pub.py"/>
+
 </launch>
