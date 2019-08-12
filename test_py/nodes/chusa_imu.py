@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('chusa_imu')
+import roslib; roslib.load_manifest('test_py')
 import rospy
 import smbus
 import time
@@ -299,7 +299,7 @@ def main():
 			else:
 				pitch = - (float)(PI / 2)
 		else:
-			pitch = (float)(math.atan2(gyro['x'] / (gyro['y'] * sin(roll) + gyro['z'] * cos(roll)))
+			pitch = (float)(math.atan2(gyro['x'] / (gyro['y'] * sin(roll) + gyro['z'] * cos(roll))))
 
 		imu.orientation.y = pitch
 
