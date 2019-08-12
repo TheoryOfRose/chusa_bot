@@ -1,4 +1,0 @@
-<launch>
-  <node pkg="chusa_imu" type="chusa_imu" name="chusa_imu">
-  </node>
-</launch>
