@@ -13,5 +13,9 @@
   </node>
 
   <node name="imu_pub" pkg="imu_mpu9250_pub" type="imu_pub.py"/>
+  <node name="imu_filter" pkg="imu_filter_madgwick" type="imu_filter_node">
+    <param name="use_mag" value="true"/>
+    <param name="publish_tf" value="true"/>
+  </node>
 
 </launch>
