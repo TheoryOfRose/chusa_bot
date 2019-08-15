@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 import roslib; roslib.load_manifest('imu_mpu9250_pub')
 import rospy
-from sensor_msgs.msg import Imu, MagneticField
+import tf
+from sensor_msgs.msg import Imu
+from nav_msgs.msg import Odometry
+from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
 
 import smbus
 import math
@@ -279,56 +282,104 @@ class MPU9250:
         return value
 
 def publisher():
-    pub_imu = rospy.Publisher('imu/data_raw', Imu)
-    pub_mag = rospy.Publisher('imu/mag', MagneticField)
-    rospy.init_node('imu_pub')
+    rospy.init_node('imu_odom_pub')
+    imu_pub = rospy.Publisher('imu', Imu, queue_size=10)
+    odom_pub = rospy.Publisher('odom', Odometry, queue_size=10)
+    odom_broadcaster = tf.TransformBroadcaster()
+    current_time = rospy.Time.now()
+    last_time = rospy.Time.now()
     imu = Imu()
-    magnetic = MagneticField()
+    odom = Odometry()
+    x = 0.0
+    y = 0.0
+    th = 0.0
+    vx = 0.0
+    vy = 0.0
+    vth = 0.0
 
-    mpu9250 = MPU9250(); # change
+    mpu9250 = MPU9250();
 
     while not rospy.is_shutdown():
 
-	accel = mpu9250.readAccel()
-	gyro = mpu9250.readGyro()
-	mag = mpu9250.readMagnet()
+        current_time = rospy.Time.now()
+        dt = (current_time-last_time).to_sec()
+        delta_x = 
 
-        #roll = (float)(math.atan2(gyro['y'], gyro['z']))
+        # imu msg
+	    accel = mpu9250.readAccel()
+	    gyro = mpu9250.readGyro()
+	    mag = mpu9250.readMagnet()
+
+        roll = (float)(math.atan2(gyro['y'], gyro['z']))
         
-        #imu.orientation.x = roll
+        imu.orientation.x = roll
 
-        #pitch = (float)(0.0)
+        pitch = (float)(0.0)
 
-        #if(gyro['y']*math.sin(roll) + gyro['z'] * math.cos(roll) == 0):
-        #        if( gyro['x'] > 0):
-        #                pitch = (float)(PI /2)
-        #        else:
-        #                pitch = - (float)(PI / 2)
-        #else:
-        #        pitch = (float)(math.atan2(gyro['x'] , (gyro['y'] * math.sin(roll) + gyro['z'] * math.cos(roll))))
+        if(gyro['y']*math.sin(roll) + gyro['z'] * math.cos(roll) == 0):
+                if( gyro['x'] > 0):
+                        pitch = (float)(PI /2)
+                else:
+                        pitch = - (float)(PI / 2)
+        else:
+                pitch = (float)(math.atan2(gyro['x'] , (gyro['y'] * math.sin(roll) + gyro['z'] * math.cos(roll))))
 
-        #imu.orientation.y = pitch
+        imu.orientation.y = pitch
 
-        #yaw = (float)(math.atan2(mag['z'] - mag['y'] * math.cos(roll), mag['x'] * math.cos(pitch) + mag['y'] * math.sin(pitch) * math.sin(roll) + mag['z'] * #math.sin(pitch) * math.cos(roll)))
-        #imu.orientation.z = yaw
+        yaw = (float)(math.atan2(mag['z'] - mag['y'] * math.cos(roll), mag['x'] * math.cos(pitch) + mag['y'] * math.sin(pitch) * math.sin(roll) + mag['z'] * math.sin(pitch) * math.cos(roll)))
+        imu.orientation.z = yaw
 
-        #imu.orientation.w = 1
+        imu.orientation.w = 1
 
         imu.angular_velocity.x = gyro['x'] * 0.07 * DPS_TO_RADS
         imu.angular_velocity.y = gyro['y'] * 0.07 * DPS_TO_RADS
         imu.angular_velocity.z = gyro['z'] * 0.07 * DPS_TO_RADS
 
-        imu.linear_acceleration.x = accel['x']
-        imu.linear_acceleration.y = accel['y']
-        imu.linear_acceleration.z = accel['z']
+        imu.linear_acceleration.x = gyro['x']
+        imu.linear_acceleration.y = gyro['y']
+        imu.linear_acceleration.z = gyro['z']
 
-        magnetic.magnetic_field.x = mag['x']
-        magnetic.magnetic_field.y = mag['y']
-        magnetic.magnetic_field.z = mag['z']
+        # odometry msg
 
-        pub_imu.publish(imu)
-        pub_mag.publish(magnetic)
-        rospy.sleep(1.0)
+        # compute odometry in a typical way given the velocities of the robot
+        delta_x = (vx * cos(th) - vy * sin(th)) * dt
+        delta_y = (vx * sin(th) + vy * cos(th)) * dt
+        delta_th = vth * dt
+
+        x += delta_x
+        y += delta_y
+        th += delta_th
+
+        # since all odometry is 6DOF we'll need a quaternion created from yaw
+        odom_quat = tf.transformations.quaternion_from_euler(0, 0, th)
+
+        # first, we'll publish the transform over tf
+        odom_broadcaster.sendTransform(
+            (x, y, 0.),
+            odom_quat,
+            current_time,
+            "base_link",
+            "odom"
+        )
+
+        # next, we'll publish the odometry message over ROS
+        odom = Odometry()
+        odom.header.stamp = current_time
+        odom.header.frame_id = "odom"
+
+        # set the position
+        odom.pose.pose = Pose(Point(x, y, 0.), Quaternion(*odom_quat))
+
+        # set the velocity
+        odom.child_frame_id = "base_link"
+        odom.twist.twist = Twist(Vector3(vx, vy, 0), Vector3(0, 0, vth))
+
+        # publish the message
+        odom_pub.publish(odom)
+
+        imu_pub.publish(imu)
+        odom_pub.publish(odom)
+        rospy.sleep(0.1)
 
 if __name__ == '__main__':
     try:

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="ard_port" default="/dev/ttyACM0"/>
+  <arg name="baud_rate" default="57600"/>
+
+  <include file="$(find robot_base)/launch/robot_base.launch"/>
+  <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
+
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py">
+    <param name="_port" value="$(arg ard_port)"/>
+    <param name="_baud" value="$(arg baud_rate)"/>
+  </node>
+
+  <node name="imu_pub" pkg="imu_mpu9250_pub" type="imu_pub.py"/>
+
+</launch>
