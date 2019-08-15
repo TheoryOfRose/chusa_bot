@@ -279,8 +279,8 @@ class MPU9250:
         return value
 
 def publisher():
-    pub_imu = rospy.Publisher('imu/data_raw', Imu)
-    pub_mag = rospy.Publisher('imu/mag', MagneticField)
+    pub_imu = rospy.Publisher('imu/data_raw', Imu, queue_size=10)
+    pub_mag = rospy.Publisher('imu/mag', MagneticField, queue_size=10)
     rospy.init_node('imu_pub')
     imu = Imu()
     magnetic = MagneticField()
