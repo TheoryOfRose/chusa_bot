@@ -1,0 +1,8 @@
+prefix=/home/hmh/tf_test/install
+
+Name: chusa_twist
+Description: Description of chusa_twist
+Version: 0.0.0
+Cflags: -I/home/hmh/tf_test/install/include
+Libs: -L/home/hmh/tf_test/install/lib 
+Requires: geometry_msgs roscpp sensor_msgs

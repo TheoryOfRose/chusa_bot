@@ -1,0 +1,8 @@
+prefix=/home/hmh/tf_test/devel
+
+Name: chusa_tf
+Description: Description of chusa_tf
+Version: 0.0.0
+Cflags: -I/home/hmh/tf_test/src/chusa_tf/include
+Libs: -L/home/hmh/tf_test/devel/lib 
+Requires: geometry_msgs roscpp nav_msgs
