@@ -43,13 +43,6 @@ int main(int argc, char** argv)
   ros::NodeHandle nh;
   ros::NodeHandle nh_private("~");
   scan_tools::LaserScanMatcher laser_scan_matcher(nh, nh_private);
-
-  ///
-  ros::Rate r(10);
-  while(ros::ok()){
-    ros::spinOnce();
-    r.sleep();
-  }
-  //ros::spin();
+  ros::spin();
   return 0;
 }
