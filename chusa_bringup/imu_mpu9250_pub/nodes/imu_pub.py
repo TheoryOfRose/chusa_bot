@@ -313,7 +313,7 @@ def publisher():
         #imu.orientation.z = yaw
 
         #imu.orientation.w = 1
-        imu.header.stamp = rospy.Time.now().to_sec()
+        imu.header.stamp = rospy.Time.now()
         imu.header.frame_id = 'base_link'
         imu.angular_velocity.x = gyro['y'] * 0.07 * DPS_TO_RADS
         imu.angular_velocity.y = - gyro['x'] * 0.07 * DPS_TO_RADS
@@ -323,7 +323,7 @@ def publisher():
         imu.linear_acceleration.y = - accel['x'] * 9.8
         imu.linear_acceleration.z = accel['z'] * 9.8
 
-        magnetic.header.stamp = rospy.Time.now().to_sec()
+        magnetic.header.stamp = rospy.Time.now()
         magnetic.header.frame_id = 'base_link'
         magnetic.magnetic_field.x = mag['y']
         magnetic.magnetic_field.y = - mag['x']
