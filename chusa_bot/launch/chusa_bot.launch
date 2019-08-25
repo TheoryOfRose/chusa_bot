@@ -1,18 +1,24 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!--arg name="ard_port" default="/dev/ttyACM0"/-->
-  <arg name="baud_rate" default="57600"/>
-
   <include file="$(find robot_base)/launch/robot_base.launch"/>
-  <!--include file="$(find rplidar_ros)/launch/rplidar.launch"/-->
+  <node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+    <param name="serial_port"         type="string" value="/dev/ttyUSB0"/>  
+    <param name="serial_baudrate"     type="int"    value="115200"/>
+    <param name="frame_id"            type="string" value="laser"/>
+    <param name="inverted"            type="bool"   value="false"/>
+    <param name="angle_compensate"    type="bool"   value="true"/>
+  </node>
 
-  
-
-  <!--node name="imu_pub" pkg="imu_mpu9250_pub" type="imu_pub.py"/>
+  <node name="imu_pub" pkg="imu_mpu9250_pub" type="imu_pub.py"/>
   <node name="imu_filter" pkg="imu_filter_madgwick" type="imu_filter_node">
     <param name="use_mag" value="true"/>
     <param name="publish_tf" value="true"/>
-  </node-->
+  </node>
+
+  <node name="motor_controller" pkg="rosserial_python" type="serial_node.py">
+    <param name="_port" value="/dev/ttyACM0"/>
+    <param name="_baud" value="57600"/>
+  </node>
 
 </launch>
