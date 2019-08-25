@@ -74,25 +74,25 @@ LaserScanMatcher::LaserScanMatcher(ros::NodeHandle nh, ros::NodeHandle nh_privat
   if (publish_pose_)
   {
     pose_publisher_  = nh_.advertise<geometry_msgs::Pose2D>(
-      "pose2D", 5);
+      "pose2D", 1);
   }
 
   if (publish_pose_stamped_)
   {
     pose_stamped_publisher_ = nh_.advertise<geometry_msgs::PoseStamped>(
-      "pose_stamped", 5);
+      "pose_stamped", 1);
   }
 
   if (publish_pose_with_covariance_)
   {
     pose_with_covariance_publisher_  = nh_.advertise<geometry_msgs::PoseWithCovariance>(
-      "pose_with_covariance", 5);
+      "pose_with_covariance", 1);
   }
 
   if (publish_pose_with_covariance_stamped_)
   {
     pose_with_covariance_stamped_publisher_ = nh_.advertise<geometry_msgs::PoseWithCovarianceStamped>(
-      "pose_with_covariance_stamped", 5);
+      "pose_with_covariance_stamped", 1);
   }
 
   // *** subscribers
@@ -151,9 +151,9 @@ void LaserScanMatcher::initParams()
   if (use_cloud_input_)
   {
     if (!nh_private_.getParam ("cloud_range_min", cloud_range_min_))
-      cloud_range_min_ = 0.1;
+      cloud_range_min_ = 0.2;
     if (!nh_private_.getParam ("cloud_range_max", cloud_range_max_))
-      cloud_range_max_ = 50.0;
+      cloud_range_max_ = 8.0;
     if (!nh_private_.getParam ("cloud_res", cloud_res_))
       cloud_res_ = 0.05;
 
@@ -178,7 +178,7 @@ void LaserScanMatcher::initParams()
   // If more than one is enabled, priority is imu > odom > vel
 
   if (!nh_private_.getParam ("use_imu", use_imu_))
-    use_imu_ = false;
+    use_imu_ = true;
   if (!nh_private_.getParam ("use_odom", use_odom_))
     use_odom_ = false;
   if (!nh_private_.getParam ("use_vel", use_vel_))
@@ -224,7 +224,7 @@ void LaserScanMatcher::initParams()
 
   // Maximum translation between scans (m)
   if (!nh_private_.getParam ("max_linear_correction", input_.max_linear_correction))
-    input_.max_linear_correction = 0.50;
+    input_.max_linear_correction = 0.22;
 
   // Maximum ICP cycle iterations
   if (!nh_private_.getParam ("max_iterations", input_.max_iterations))
@@ -318,7 +318,7 @@ void LaserScanMatcher::initParams()
 
   // If 1, computes the covariance of ICP using the method http://purl.org/censi/2006/icpcov
   if (!nh_private_.getParam ("do_compute_covariance", input_.do_compute_covariance))
-    input_.do_compute_covariance = 0;
+    input_.do_compute_covariance = 1;
 
   // Checks that find_correspondences_tricks gives the right answer
   if (!nh_private_.getParam ("debug_verify_tricks", input_.debug_verify_tricks))

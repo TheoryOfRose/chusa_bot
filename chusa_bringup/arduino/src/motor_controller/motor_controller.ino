@@ -102,8 +102,8 @@ void msgCallback(const chusa_msgs::Pwm& msg){
       digitalWrite(R_FORW, LOW);
       digitalWrite(R_BACK, HIGH);
     }
-    analogWrite(L_PWM, pwm);
-    analogWrite(R_PWM, pwm);
+    analogWrite(R_PWM, right);
+    analogWrite(L_PWM, left);
   }
   
 }

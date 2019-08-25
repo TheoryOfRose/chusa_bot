@@ -51,15 +51,18 @@ void Chusa_Odom::msgCallback(const geometry_msgs::PoseWithCovarianceStamped pose
 		odom.pose.pose.orientation.z = pose_in.pose.pose.orientation.z;
 		odom.pose.pose.orientation.w = pose_in.pose.pose.orientation.w;
 
-		odom.twist.twist.linear.x = (curr_x - prev_x) / dt;
-		odom.twist.twist.linear.y = (curr_y - prev_y) / dt;
+		//odom.twist.twist.linear.x = (curr_x - prev_x) / dt;
+		//odom.twist.twist.linear.y = (curr_y - prev_y) / dt;
+		odom.twist.twist.linear.x = 0;
+		odom.twist.twist.linear.y = 0;
 		odom.twist.twist.linear.z = (curr_z - prev_z) / dt;
 
 		if(curr_y-prev_y < 0.001 || curr_x-prev_x < 0.001){
 			odom.twist.twist.angular.z = 0;
 		}
 		else{
-			odom.twist.twist.angular.z = atan( (curr_y - prev_y) / ((curr_x - prev_x)) ) / dt ;
+			//odom.twist.twist.angular.z = atan( (curr_y - prev_y) / ((curr_x - prev_x)) ) / dt ;
+			odom.twist.twist.angular.z = 0;
 		}
 		odom.twist.twist.angular.x = 0.0;
 		odom.twist.twist.angular.y = 0.0;

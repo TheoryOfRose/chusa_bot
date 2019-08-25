@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="laser_scan_matcher" pkg="laser_scan_matcher" type="laser_scan_matcher_node"/>
+  <node name="odom_pub" pkg="chusa_odom" type="chusa_odom_node"/>
+
+</launch>
