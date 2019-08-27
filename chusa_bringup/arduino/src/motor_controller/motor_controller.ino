@@ -4,12 +4,12 @@
 #include <math.h>
 #include <chusa_msgs/Pwm.h>
 
-#define R_PWM 9
-#define R_FORW 8
-#define R_BACK 7
-#define L_PWM 3
-#define L_FORW 4
-#define L_BACK 2
+#define R_PWM 3
+#define R_FORW 4
+#define R_BACK 2
+#define L_PWM 9
+#define L_FORW 8
+#define L_BACK 7
 #define MAX_PWM 255
 #define MIN_PWM 0
 
@@ -44,6 +44,7 @@ void stop()
 
 // message callback
 void msgCallback(const chusa_msgs::Pwm& msg){
+  
   bool left_for, right_for;
   if(msg.left_pwm > 0){
     left_for = true;

@@ -178,7 +178,7 @@ void LaserScanMatcher::initParams()
   // If more than one is enabled, priority is imu > odom > vel
 
   if (!nh_private_.getParam ("use_imu", use_imu_))
-    use_imu_ = false;
+    use_imu_ = true;
   if (!nh_private_.getParam ("use_odom", use_odom_))
     use_odom_ = false;
   if (!nh_private_.getParam ("use_vel", use_vel_))
@@ -197,11 +197,11 @@ void LaserScanMatcher::initParams()
   if (!nh_private_.getParam ("publish_tf", publish_tf_))
     publish_tf_ = true;
   if (!nh_private_.getParam ("publish_pose", publish_pose_))
-    publish_pose_ = true;
+    publish_pose_ = false;
   if (!nh_private_.getParam ("publish_pose_stamped", publish_pose_stamped_))
-    publish_pose_stamped_ = true;
+    publish_pose_stamped_ = false;
   if (!nh_private_.getParam ("publish_pose_with_covariance", publish_pose_with_covariance_))
-    publish_pose_with_covariance_ = true;
+    publish_pose_with_covariance_ = false;
   if (!nh_private_.getParam ("publish_pose_with_covariance_stamped", publish_pose_with_covariance_stamped_))
     publish_pose_with_covariance_stamped_ = true;
 
@@ -220,15 +220,15 @@ void LaserScanMatcher::initParams()
 
   // Maximum angular displacement between scans
   if (!nh_private_.getParam ("max_angular_correction_deg", input_.max_angular_correction_deg))
-    input_.max_angular_correction_deg = 45.0;
+    input_.max_angular_correction_deg = 90.0;
 
   // Maximum translation between scans (m)
   if (!nh_private_.getParam ("max_linear_correction", input_.max_linear_correction))
-    input_.max_linear_correction = 0.50;
+    input_.max_linear_correction = 5.0;
 
   // Maximum ICP cycle iterations
   if (!nh_private_.getParam ("max_iterations", input_.max_iterations))
-    input_.max_iterations = 10;
+    input_.max_iterations = 30;
 
   // A threshold for stopping (m)
   if (!nh_private_.getParam ("epsilon_xy", input_.epsilon_xy))
