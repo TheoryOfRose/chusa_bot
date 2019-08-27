@@ -279,8 +279,32 @@ class MPU9250:
         return value
 
 def publisher():
-    pub_imu = rospy.Publisher('imu/data', Imu, queue_size=10)
-    pub_mag = rospy.Publisher('imu/mag', MagneticField, queue_size=10)
+
+#    accel_x_sum = 0
+#    accel_y_sum = 0
+#    accel_z_sum = 0
+#    gyro_x_sum = 0
+#    gyro_y_sum = 0
+#    gyro_z_sum = 0
+#    for(int i = 0; i < 100; i++){
+#	accel = mpu9250.readAccel()
+#	gyro = mpu9250.readGyro()
+#	accel_x_sum += accel['y']
+#	accel_y_sum += accel['x']
+#	accel_z_sum += accel['z']
+#	gyro_x_sum += gyro['y']
+#	gyro_y_sum += gyro['x']
+#	gyro_z_sum += gyro['z']
+#    }
+#    accel_x_init = accel_x_sum / 100
+#    accel_y_init = accel_y_sum / 100
+#    accel_z_init = accel_z_sum / 100
+#    gyro_x_init = gyro_x_sum / 100
+#    gyro_y_init = gyro_y_sum / 100
+#    gyro_z_init = gyro_z_sum / 100
+
+    pub_imu = rospy.Publisher('imu/data_raw', Imu, queue_size=5)
+    pub_mag = rospy.Publisher('imu/mag', MagneticField, queue_size=5)
     rospy.init_node('imu_pub')
     imu = Imu()
     magnetic = MagneticField()
@@ -293,37 +317,18 @@ def publisher():
 	gyro = mpu9250.readGyro()
 	mag = mpu9250.readMagnet()
 
-        #roll = (float)(math.atan2(gyro['y'], gyro['z']))
-        
-        #imu.orientation.x = roll
-
-        #pitch = (float)(0.0)
-
-        #if(gyro['y']*math.sin(roll) + gyro['z'] * math.cos(roll) == 0):
-        #        if( gyro['x'] > 0):
-        #                pitch = (float)(PI /2)
-        #        else:
-        #                pitch = - (float)(PI / 2)
-        #else:
-        #        pitch = (float)(math.atan2(gyro['x'] , (gyro['y'] * math.sin(roll) + gyro['z'] * math.cos(roll))))
-
-        #imu.orientation.y = pitch
-
-        #yaw = (float)(math.atan2(mag['z'] - mag['y'] * math.cos(roll), mag['x'] * math.cos(pitch) + mag['y'] * math.sin(pitch) * math.sin(roll) + mag['z'] * #math.sin(pitch) * math.cos(roll)))
-        #imu.orientation.z = yaw
-
-        #imu.orientation.w = 1
-        imu.header.stamp = rospy.Time.now().to_sec()
+        imu.header.stamp = rospy.Time.now()
         imu.header.frame_id = 'base_link'
-        imu.angular_velocity.x = gyro['y'] * 0.07 * DPS_TO_RADS
-        imu.angular_velocity.y = - gyro['x'] * 0.07 * DPS_TO_RADS
-        imu.angular_velocity.z = gyro['z'] * 0.07 * DPS_TO_RADS
+        imu.angular_velocity.x = (gyro['y']) * 0.07 * DPS_TO_RADS
+        imu.angular_velocity.y = - (gyro['x']) * 0.07 * DPS_TO_RADS
+        imu.angular_velocity.z = (gyro['z']) * 0.07 * DPS_TO_RADS
 
-        imu.linear_acceleration.x = accel['y'] * 9.8
-        imu.linear_acceleration.y = - accel['x'] * 9.8
-        imu.linear_acceleration.z = accel['z'] * 9.8
+        imu.linear_acceleration.x = (accel['y']) * 9.8
+        imu.linear_acceleration.y = -( accel['x']) * 9.8
+        imu.linear_acceleration.z = (accel['z']) * 9.8
+	#imu.linear_acceleration.x = 0
 
-        magnetic.header.stamp = rospy.Time.now().to_sec()
+        magnetic.header.stamp = rospy.Time.now()
         magnetic.header.frame_id = 'base_link'
         magnetic.magnetic_field.x = mag['y']
         magnetic.magnetic_field.y = - mag['x']
@@ -331,7 +336,7 @@ def publisher():
 
         pub_imu.publish(imu)
         pub_mag.publish(magnetic)
-        rospy.sleep(1.0)
+        rospy.sleep(0.01)
 
 if __name__ == '__main__':
     try:

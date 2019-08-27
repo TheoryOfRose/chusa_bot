@@ -89,7 +89,7 @@ ImuFilterRos::ImuFilterRos(ros::NodeHandle nh, ros::NodeHandle nh_private):
 
   // **** register publishers
   imu_publisher_ = nh_.advertise<sensor_msgs::Imu>(
-    ros::names::resolve("imu") + "/data", 5);
+    /*ros::names::resolve("imu") + */"/imu", 5);
 
   if (publish_debug_topics_)
   {
