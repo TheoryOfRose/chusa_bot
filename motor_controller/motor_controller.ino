@@ -1,13 +1,15 @@
 
 
-const int dirPin = 2;  
-const int stepPin = 3;  
+const int dirPin = 4;  
+const int stepPin = 5;  
 const int stepsPerRevolution = 800;  
   
 void setup()  
 {  
     pinMode(stepPin, OUTPUT);  
-    pinMode(dirPin, OUTPUT);  
+    pinMode(dirPin, OUTPUT);
+    digitalWrite(stepPin, LOW);
+    digitalWrite(dirPin ,LOW); 
 }  
 void loop()  
 {  
