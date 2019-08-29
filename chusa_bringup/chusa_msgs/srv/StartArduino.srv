@@ -1,6 +1,0 @@
-char min_pwm
-char max_pwm
-float32 min_velocity
-float32 max_velocity
----
-bool rx_signal
