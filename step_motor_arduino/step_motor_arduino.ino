@@ -50,8 +50,8 @@ void msgCallback(const chusa_msgs::Step& msg){
   int mod_left = floor(LOOP / msg.left_tick);
   int mod_right = floor(LOOP / msg.right_tick);
 
-  digitalWrite(left_dir, !msg.left_direction);
-  digitalWrite(right_dir, msg.right_direction);
+  digitalWrite(left_dir, msg.left_direction);
+  digitalWrite(right_dir, !msg.right_direction);
 
   if(msg.left_tick == 0 && msg.right_tick == 0){
     stop_motor();
