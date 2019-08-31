@@ -58,10 +58,7 @@ add_message_files(
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  TiltClkWise.srv
-  TiltCounterClkWise.srv
-  ResetTilt.srv
-  TfFromTilt.srv
+  Sensing3DOnce.srv
 )
 
 ## Generate actions in the 'action' folder
