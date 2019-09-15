@@ -6,7 +6,7 @@
 #include <geometry_msgs/TwistStamped.h>
 #include <nav_msgs/Odometry.h>
 
-/*
+
 using namespace message_filters;
 
 ros::Publisher pub_;
@@ -59,8 +59,8 @@ int main(int argc, char** argv)
   return 0;
 }
 
-*/
 
+/*
 ros::Publisher pub_;
 geometry_msgs::Twist twist;
 
@@ -112,4 +112,4 @@ int main(int argc, char** argv)
   ros::spin();
 
   return 0;
-}
+}*/
