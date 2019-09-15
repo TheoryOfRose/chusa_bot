@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<<<<<< HEAD
 Arduino Upload
 $arduino --upload name.ino
 $sudo chmod 666 /dev/ttyACM0
@@ -9,6 +9,7 @@ https://askubuntu.com/questions/600584/error-could-not-load-host-key-when-trying
 https://yeopbox.com/%EC%9A%B0%EB%B6%84%ED%88%AC-%EB%A9%94%EC%9D%B4%ED%8A%B8-16-04-lts-ssh-%EC%9B%90%EA%B2%A9-%EC%A0%9C%EC%96%B4%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/
 >>>>>>> f067fee5a04d55da518d4f92ccc2d11dc4654e92
 
+sudo apt-get install ros-melodic-octomap ros-melodic-octomap-mapping ros-melodic-octomap-msgs ros-melodic-octomap-ros ros-melodic-octomap-rviz-plugins ros-melodic-octomap-server
 
 https://m.blog.naver.com/PostView.nhn?blogId=khsuniv201&logNo=221014021629&proxyReferer=https%3A%2F%2Fwww.google.com%2F'
 
